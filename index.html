@@ -1,59 +1,61 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="theme-color" content="#000000">
-  <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="apple-touch-icon" href="./icons/icon-192.png">
-  <title>黑底閱讀器（CSV 只讀版）</title>
-  <link rel="stylesheet" href="./style.css?v=csvro2">
+<style>:root{--fs:18px}</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#121212">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+<title>浪人閱讀</title>
+<link rel="stylesheet" href="./style.css?v=v3k">
+  <link rel="stylesheet" href="./settings.overlay.css">
 </head>
 <body>
-  <header>
-    <div class="bar">
-      <div class="clock">讀取器</div>
-    </div>
-    <nav>
-      <button id="tabArticle" aria-pressed="true">文章庫</button>
-      <button id="tabFile">文件庫</button>
-      <button id="tabDaily">日常</button>
-    </nav>
-  </header>
-
-  <main>
-    <section class="toolbar">
-      <input id="q" placeholder="搜尋標題 / 內容 / 分類（即時）">
-      <select id="filterCat">
-        <option value="">全部分類</option>
-        <option>法務</option><option>哲學</option><option>心靈</option><option>電商</option><option>其他</option>
-      </select>
-      <button id="refresh">⟳ 同步</button>
-    </section>
+<header>
+  <div class="bar"><div class="clock">浪人閱讀</div></div>
+  <nav>
+    <button id="tabArticle" aria-pressed="true">文章庫</button>
+    <button id="tabFile">文件庫</button>
+    <button id="tabDaily">日常</button>
+  </nav>
+</header>
+<main>
+  <section id="toolbar" class="toolbar">
+    <div class="chips" id="workChips"><button class="chip active" data-val="">全部</button></div>
+    <input id="q" placeholder="搜尋標題 / 內容（至少 2 字）">
+    <button id="refresh">⟳ 同步</button>
+  </section>
+  <section id="listPanel">
     <ul id="list"></ul>
-
-    <section id="reader" class="readerPanel hidden">
-      <h2 id="rTitle"></h2>
-      <div id="rMeta" class="meta"></div>
-      <div id="rContent" class="prewrap"></div>
-      <div id="progress" class="progress hidden"><span></span></div>
-      <div class="row">
-        <button id="back">← 返回列表</button>
+    <div id="loadMoreBox" class="row hidden"><button id="loadMore">載入更多</button></div>
+  </section>
+  <section id="reader" class="readerPanel hidden">
+    <div class="readerTop">
+      <div class="grow"></div>
+      <button id="bookmark" class="fab small" title="加書籤">📍</button>
+    </div>
+    <h2 id="rTitle"></h2>
+    <div id="rMeta" class="meta"></div>
+    <div class="readControls">
+      <span class="meta">字級</span>
+      <div class="seg">
+        <button class="segBtn" data-size="s">A−</button>
+        <button class="segBtn" data-size="m" aria-pressed="true">A</button>
+        <button class="segBtn" data-size="l">A+</button>
       </div>
-    </section>
-  </main>
-
-  <footer>
-    <small>黑底白字・膠囊分頁・逐步加載・CSV 只讀版</small>
-  </footer>
-
-  <script src="./app.js?v=csvro2"></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js?v=csvro2');
-    }
-  </script>
+    </div>
+    <div id="rContent" class="prewrap"></div>
+    <div id="progress" class="progress hidden"><span></span></div>
+    <div class="row"><button id="backBottom" class="pillBtn small">← 返回列表</button></div>
+    <button id="bmFloat" class="fab hidden" title="回到書籤">↺</button>
+  </section>
+</main>
+<footer><small>柔黑底・米白字・多選快篩・右滑返回（閱讀畫面）・極簡書籤・CSV 只讀 v3k</small></footer>
+<script src="./app.js?v=v3k"></script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js?v=v3k');}</script>
+  <script src="./settings.overlay.js"></script>
 </body>
 </html>
