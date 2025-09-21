@@ -1,18 +1,28 @@
 
-/* === Ronin overrides X2｜書籤條紋終結版（保持只改背景的 paper） v2025-09-21 === */
+/* === Ronin overrides X3｜最終：只改背景＋書籤條紋終結＋閱讀模式去毛玻璃 v2025-09-21 === */
 
-/* 只改背景：paper */
+/* 只改背景的 paper 模式（其餘保持深色元件） */
 body.paper{ --bg:#FAF9F6; }
 body{ background:var(--bg); }
 
-/* ── 核心：書籤（閱讀器右上 + 右下）去條紋 ── */
+/* 在閱讀模式，關掉任何可能造成條紋的毛玻璃與半透明層 */
+body.in-reader header,
+body.in-reader .readerTop{
+  background:#121212 !important;
+  -webkit-backdrop-filter:none !important;
+  backdrop-filter:none !important;
+  filter:none !important;
+  box-shadow:none !important;
+}
+
+/* 書籤（右上 + 右下）強化隔離與純色底 */
 #bookmark, #bmFloat{
-  background:#0f1113 !important;        /* 完全不透明純色 */
+  background:#0f1113 !important;
   color:#fff !important;
   border:1px solid #1e2227 !important;
   box-shadow:0 6px 18px rgba(0,0,0,.25) !important;
   border-radius:20px !important;
-  /* 建立獨立合成層 / 隔離混色 */
+  /* 終結 banding：自成合成層＋隔離混色 */
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
   will-change: transform;
@@ -23,36 +33,7 @@ body{ background:var(--bg); }
   mix-blend-mode: normal !important;
   filter: none !important;
 }
+#bookmark::before,#bookmark::after,#bmFloat::before,#bmFloat::after{ content:none!important; }
 
-/* 清掉任何偽元素造成的毛玻璃/透明 */
-#bookmark::before, #bookmark::after,
-#bmFloat::before, #bmFloat::after{
-  content: none !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-  filter: none !important;
-  opacity: 0 !important;
-}
-
-/* 容器層也不要用濾鏡/透明（僅限閱讀器頂部區） */
-.readerTop{
-  background:#121212 !important;        /* 固定深色，避免半透明疊加 */
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-  filter: none !important;
-}
-
-/* 全域 .fab 底色若覆蓋到書籤，保險再鎖一次 */
+/* 若有全域 .fab 覆蓋到它們，保險鎖底色 */
 .fab#bookmark, .fab#bmFloat{ background:#0f1113 !important; }
-
-/* 設定面板右下「完成」鈕（若有）—同樣避免條紋 */
-.rn-done{
-  background:#0f1113 !important;
-  color:#fff !important;
-  border:1px solid #1e2227 !important;
-  box-shadow:0 6px 18px rgba(0,0,0,.25) !important;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  isolation:isolate;
-  mix-blend-mode: normal !important;
-}

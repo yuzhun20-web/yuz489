@@ -32,8 +32,8 @@ function setTab(k){
   (k==='article'?$('#tabArticle'):k==='file'?$('#tabFile'):$('#tabDaily')).setAttribute('aria-pressed','true');
   showList();
 }
-function showList(){ $('#reader').classList.add('hidden'); $('#listPanel').classList.remove('hidden'); $('#toolbar').classList.remove('hidden'); window.scrollTo(0,0); }
-function showReader(){ $('#reader').classList.remove('hidden'); $('#listPanel').classList.add('hidden'); $('#toolbar').classList.add('hidden'); window.scrollTo(0,0); }
+function showList(){ document.body.classList.remove('in-reader'); $('#reader').classList.add('hidden'); $('#listPanel').classList.remove('hidden'); $('#toolbar').classList.remove('hidden'); window.scrollTo(0,0); }
+function showReader(){ document.body.classList.add('in-reader'); $('#reader').classList.remove('hidden'); $('#listPanel').classList.add('hidden'); $('#toolbar').classList.add('hidden'); window.scrollTo(0,0); }
 
 // CSV parser
 function parseCSV(t){
