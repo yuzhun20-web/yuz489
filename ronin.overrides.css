@@ -1,13 +1,8 @@
-
-/* === Ronin overrides X3｜最終：只改背景＋書籤條紋終結＋閱讀模式去毛玻璃 v2025-09-21 === */
-
-/* 只改背景的 paper 模式（其餘保持深色元件） */
+/* === Ronin overrides X3 最終：只改背景＋書籤去條紋＋閱讀模式實色 === */
 body.paper{ --bg:#FAF9F6; }
 body{ background:var(--bg); }
 
-/* 在閱讀模式，關掉任何可能造成條紋的毛玻璃與半透明層 */
-body.in-reader header,
-body.in-reader .readerTop{
+.readerTop, header{
   background:#121212 !important;
   -webkit-backdrop-filter:none !important;
   backdrop-filter:none !important;
@@ -15,25 +10,19 @@ body.in-reader .readerTop{
   box-shadow:none !important;
 }
 
-/* 書籤（右上 + 右下）強化隔離與純色底 */
 #bookmark, #bmFloat{
   background:#0f1113 !important;
   color:#fff !important;
   border:1px solid #1e2227 !important;
   box-shadow:0 6px 18px rgba(0,0,0,.25) !important;
   border-radius:20px !important;
-  /* 終結 banding：自成合成層＋隔離混色 */
   transform: translateZ(0);
-  -webkit-transform: translateZ(0);
   will-change: transform;
   backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
   isolation: isolate;
   contain: paint;
   mix-blend-mode: normal !important;
   filter: none !important;
 }
-#bookmark::before,#bookmark::after,#bmFloat::before,#bmFloat::after{ content:none!important; }
-
-/* 若有全域 .fab 覆蓋到它們，保險鎖底色 */
+#bookmark::before,#bookmark::after,#bmFloat::before,#bmFloat::after{content:none!important;}
 .fab#bookmark, .fab#bmFloat{ background:#0f1113 !important; }

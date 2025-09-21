@@ -47,5 +47,7 @@
   // init
   const p=load(); applyTheme(p.theme); applyFS(p.fs);
   ensureUI(); bind();
+
+  // ensure tags-right class to move tags on right middle; won't break original if absent
   document.body.classList.add('tags-right');
 })();

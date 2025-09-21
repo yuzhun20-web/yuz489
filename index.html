@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-<style>:root{--fs:18px}</style>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -9,13 +8,13 @@
 <meta name="theme-color" content="#121212">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./icons/icon-192.png">
-<title>浪人閱讀</title>
+<title>浪浪閱讀</title>
 <link rel="stylesheet" href="./style.css?v=v3k">
-  <link rel="stylesheet" href="./settings.overlay.css">
+  <link rel="stylesheet" href="./ronin.overrides.css?v=1">
 </head>
 <body>
 <header>
-  <div class="bar"><div class="clock">浪人閱讀</div></div>
+  <div class="bar"><div class="clock">浪浪閱讀</div></div>
   <nav>
     <button id="tabArticle" aria-pressed="true">文章庫</button>
     <button id="tabFile">文件庫</button>
@@ -56,6 +55,6 @@
 <footer><small>柔黑底・米白字・多選快篩・右滑返回（閱讀畫面）・極簡書籤・CSV 只讀 v3k</small></footer>
 <script src="./app.js?v=v3k"></script>
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js?v=v3k');}</script>
-  <script src="./settings.overlay.js"></script>
+  <script src="./ronin.settings.js?v=1"></script>
 </body>
 </html>
