@@ -1,0 +1,34 @@
+
+/* === Ronin overrides｜背景僅切換（paper）＋書籤去條紋 v2025-09-21 === */
+
+/* 保留你原本的 dark/eyecare，不動；paper 只改背景 */
+body.paper{ --bg:#FAF9F6; }      /* 只換底色 */
+body{ background:var(--bg); }    /* 套用底色，不改其他顏色 */
+
+/* 強化主標題對比（保留原設計，不透明） */
+h1,h2,h3,.brand,.app-title,.page-title,.section-title,.article-title{ color:#fff; }
+body.paper h1, body.paper h2, body.paper h3,
+body.paper .brand, body.paper .app-title, body.paper .page-title,
+body.paper .section-title, body.paper .article-title{ color:#000; }
+
+/* 書籤按鈕（閱讀器右上與右下浮動）—避免 iOS 條紋 */
+#bookmark, #bmFloat{
+  background:#0f1113 !important;    /* 純色深底 */
+  color:#fff !important;
+  border:1px solid #1e2227 !important;
+  box-shadow:0 6px 18px rgba(0,0,0,.25) !important;
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+}
+/* 禁掉任何偽元素的毛玻璃/透明（若有） */
+#bookmark::before,#bookmark::after,#bmFloat::before,#bmFloat::after{
+  -webkit-backdrop-filter:none !important; backdrop-filter:none !important; filter:none !important; opacity:0 !important;
+}
+
+/* 分頁/標籤/搜尋的實心字體：保持清楚 */
+.seg,.segBtn,.chip,input,nav button{
+  color:inherit; opacity:1 !important;
+}
