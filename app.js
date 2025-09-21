@@ -172,3 +172,33 @@ function toast(msg){
   clearTimeout(tt); tt=setTimeout(()=> t.style.opacity='0', 1200);
 }
 setTab('article'); loadList('article');
+
+// X3.2 書籤簡化：點一下記住位置（每篇各記一筆），再次進入自動回到位置
+(function(){
+  const $=s=>document.querySelector(s);
+  function getKey(){
+    // 以文章標題或 URL 當 key；如果有 data-article-id 更好
+    const id = document.querySelector('[data-article-id]')?.getAttribute('data-article-id')
+           || document.querySelector('.article-title')?.textContent?.trim()
+           || location.pathname;
+    return 'rn.bm.' + id;
+  }
+  function save(){
+    try{ localStorage.setItem(getKey(), String(window.scrollY||document.documentElement.scrollTop||0)); }catch(e){}
+  }
+  function restore(){
+    try{
+      const v = parseInt(localStorage.getItem(getKey())||'0',10)||0;
+      if(v>0){ setTimeout(()=>window.scrollTo({top:v,behavior:'instant'}), 0); }
+    }catch(e){}
+  }
+  // 掛到閱讀模式進入時
+  document.addEventListener('DOMContentLoaded', restore);
+  // 書籤按鈕點擊 → 記住位置
+  ['#bookmark','#bmFloat'].forEach(sel=>{
+    const el = document.querySelector(sel);
+    if(el){ el.addEventListener('click', save, {passive:true}); }
+  });
+  // 退出閱讀時也順便記一下
+  window.addEventListener('pagehide', save);
+})();

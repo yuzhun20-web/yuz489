@@ -1,8 +1,10 @@
-/* === Ronin overrides X3 最終：只改背景＋書籤去條紋＋閱讀模式實色 === */
+
+/* === Ronin overrides X3.2：只改背景＋書籤去條紋＋閱讀頂部實色 === */
 body.paper{ --bg:#FAF9F6; }
 body{ background:var(--bg); }
 
-.readerTop, header{
+/* 閱讀畫面頂部/工具區：實色、無毛玻璃、無透明，避免與書籤疊色 */
+.readerTop, body.in-reader header, body.in-reader .toolbar, body.in-reader .readerHeader{
   background:#121212 !important;
   -webkit-backdrop-filter:none !important;
   backdrop-filter:none !important;
@@ -10,6 +12,7 @@ body{ background:var(--bg); }
   box-shadow:none !important;
 }
 
+/* 書籤按鈕（右上 + 右下）純色隔離，避免 iOS banding */
 #bookmark, #bmFloat{
   background:#0f1113 !important;
   color:#fff !important;
@@ -19,10 +22,22 @@ body{ background:var(--bg); }
   transform: translateZ(0);
   will-change: transform;
   backface-visibility: hidden;
-  isolation: isolate;
-  contain: paint;
+  isolation:isolate;
+  contain:paint;
   mix-blend-mode: normal !important;
-  filter: none !important;
+  filter:none !important;
 }
 #bookmark::before,#bookmark::after,#bmFloat::before,#bmFloat::after{content:none!important;}
 .fab#bookmark, .fab#bmFloat{ background:#0f1113 !important; }
+
+/* 設定面板右上「完成」按鈕也採純色，避免條紋 */
+.rn-done{
+  background:#0f1113 !important;
+  color:#fff !important;
+  border:1px solid #1e2227 !important;
+  box-shadow:0 6px 18px rgba(0,0,0,.25) !important;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  isolation:isolate;
+  mix-blend-mode: normal !important;
+}
