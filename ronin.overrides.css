@@ -1,34 +1,58 @@
 
-/* === Ronin overrides｜背景僅切換（paper）＋書籤去條紋 v2025-09-21 === */
+/* === Ronin overrides X2｜書籤條紋終結版（保持只改背景的 paper） v2025-09-21 === */
 
-/* 保留你原本的 dark/eyecare，不動；paper 只改背景 */
-body.paper{ --bg:#FAF9F6; }      /* 只換底色 */
-body{ background:var(--bg); }    /* 套用底色，不改其他顏色 */
+/* 只改背景：paper */
+body.paper{ --bg:#FAF9F6; }
+body{ background:var(--bg); }
 
-/* 強化主標題對比（保留原設計，不透明） */
-h1,h2,h3,.brand,.app-title,.page-title,.section-title,.article-title{ color:#fff; }
-body.paper h1, body.paper h2, body.paper h3,
-body.paper .brand, body.paper .app-title, body.paper .page-title,
-body.paper .section-title, body.paper .article-title{ color:#000; }
-
-/* 書籤按鈕（閱讀器右上與右下浮動）—避免 iOS 條紋 */
+/* ── 核心：書籤（閱讀器右上 + 右下）去條紋 ── */
 #bookmark, #bmFloat{
-  background:#0f1113 !important;    /* 純色深底 */
+  background:#0f1113 !important;        /* 完全不透明純色 */
+  color:#fff !important;
+  border:1px solid #1e2227 !important;
+  box-shadow:0 6px 18px rgba(0,0,0,.25) !important;
+  border-radius:20px !important;
+  /* 建立獨立合成層 / 隔離混色 */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  isolation: isolate;
+  contain: paint;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+}
+
+/* 清掉任何偽元素造成的毛玻璃/透明 */
+#bookmark::before, #bookmark::after,
+#bmFloat::before, #bmFloat::after{
+  content: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  filter: none !important;
+  opacity: 0 !important;
+}
+
+/* 容器層也不要用濾鏡/透明（僅限閱讀器頂部區） */
+.readerTop{
+  background:#121212 !important;        /* 固定深色，避免半透明疊加 */
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  filter: none !important;
+}
+
+/* 全域 .fab 底色若覆蓋到書籤，保險再鎖一次 */
+.fab#bookmark, .fab#bmFloat{ background:#0f1113 !important; }
+
+/* 設定面板右下「完成」鈕（若有）—同樣避免條紋 */
+.rn-done{
+  background:#0f1113 !important;
   color:#fff !important;
   border:1px solid #1e2227 !important;
   box-shadow:0 6px 18px rgba(0,0,0,.25) !important;
   transform: translateZ(0);
-  will-change: transform;
   backface-visibility: hidden;
+  isolation:isolate;
   mix-blend-mode: normal !important;
-  filter: none !important;
-}
-/* 禁掉任何偽元素的毛玻璃/透明（若有） */
-#bookmark::before,#bookmark::after,#bmFloat::before,#bmFloat::after{
-  -webkit-backdrop-filter:none !important; backdrop-filter:none !important; filter:none !important; opacity:0 !important;
-}
-
-/* 分頁/標籤/搜尋的實心字體：保持清楚 */
-.seg,.segBtn,.chip,input,nav button{
-  color:inherit; opacity:1 !important;
 }
